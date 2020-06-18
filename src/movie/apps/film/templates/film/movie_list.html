@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <table border="1">
+        <tr>
+            <th> Title </th>
+            <th> People </th>
+        </tr>
+    {% for movie in movies %}
+        <tr> 
+            <td>{{ movie.title }}</td>
+            <td> <ul>
+                    {% for person in movie.people %}
+                        <li>{{ person.name }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr> 
+    {% endfor %}
+    </table>
+{% endblock %}
