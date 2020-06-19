@@ -29,6 +29,6 @@ def format_movie_data(movies, peoples):
                 movies_list.append(people) 
             movie_people[movie_id] = movies_list
     for movie in movies:
-        movie['people'] = movie_people.get(movie['id'], set())
+        movie['people'] = movie_people.get(movie['id'], list())
         data.append(movie)
     return data
