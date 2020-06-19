@@ -99,7 +99,7 @@ class TestMovieList(TestCase):
     @mock.patch('movie.apps.film.views.cache.get')
     @mock.patch('movie.apps.film.client.GhibliClient.get_movies')
     @mock.patch('movie.apps.film.client.GhibliClient.get_people')
-    def test_view_cache(self, mock_get_people, mock_get_movies, mock_cache_get):
+    def test_cache(self, mock_get_people, mock_get_movies, mock_cache_get):
         mock_get_movies.return_value = self.movies
         mock_get_people.return_value = self.people
         mock_cache_get.return_value = self.movies_cache
