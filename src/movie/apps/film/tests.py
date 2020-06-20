@@ -5,7 +5,6 @@ from django.urls import reverse
 from movie.apps.film.client import GhibliClient
 from movie.exceptions.api_exception import APIErrorException
 from movie.utils import extract_movie_id, format_movie_data
-import json
 
 class MockResponse(object):
         def __init__(self, json_data, status_code):
@@ -19,27 +18,29 @@ class TestGhibliClient(TestCase):
     def setUp(self):
         self.chilib_client = GhibliClient()
 
-    def test_movie_api_success(self):
-        with mock.patch('movie.apps.film.client.GhibliClient._get_request') as mock_get_request:
-            mock_get_request.return_value = MockResponse([{'id': 1, 'teile': 'Test 1'}, {'id': 2, 'teile': 'Test 2'}], 200)
-            movie = self.chilib_client.get_movies()
-            self.assertEqual(len(movie), 2)
+    @mock.patch('movie.apps.film.client.GhibliClient._get_request')
+    def test_movie_api_success(self, mock_get_request):
+        mock_get_request.return_value = MockResponse(
+            [{'id': 1, 'teile': 'Test 1'}, {'id': 2, 'teile': 'Test 2'}], 200)
+        movie = self.chilib_client.get_movies()
+        self.assertEqual(len(movie), 2)
 
-    def test_movie_api_error(self):
-        with mock.patch('movie.apps.film.client.requests.get') as mock_request:
-            mock_request.return_value = MockResponse({}, 504)
-            self.assertRaises(APIErrorException, self.chilib_client.get_movies)
+    @mock.patch('movie.apps.film.client.requests.get')
+    def test_movie_api_error(self, mock_request):
+        mock_request.return_value = MockResponse({}, 504)
+        self.assertRaises(APIErrorException, self.chilib_client.get_movies)
 
-    def test_people_api_success(self):
-        with mock.patch('movie.apps.film.client.GhibliClient._get_request') as mock_get_request:
-            mock_get_request.return_value = MockResponse([{'id': 1, 'name': 'Test 1'}, {'id': 2, 'name': 'Test 2'}], 200)
-            people = self.chilib_client.get_people()
-            self.assertEqual(len(people), 2)
+    @mock.patch('movie.apps.film.client.GhibliClient._get_request')
+    def test_people_api_success(self, mock_get_request):
+        mock_get_request.return_value = MockResponse(
+            [{'id': 1, 'name': 'Test 1'}, {'id': 2, 'name': 'Test 2'}], 200)
+        people = self.chilib_client.get_people()
+        self.assertEqual(len(people), 2)
 
-    def test_people_api_error(self):
-        with mock.patch('movie.apps.film.client.requests.get') as mock_request:
-            mock_request.return_value = MockResponse({}, 504)
-            self.assertRaises(APIErrorException, self.chilib_client.get_people)
+    @mock.patch('movie.apps.film.client.requests.get')
+    def test_people_api_error(self, mock_request):
+        mock_request.return_value = MockResponse({}, 504)
+        self.assertRaises(APIErrorException, self.chilib_client.get_people)
     
 
 class TestUtils(TestCase):

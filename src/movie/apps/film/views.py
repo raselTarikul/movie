@@ -19,15 +19,15 @@ class MovieList(View):
         list. Used django caching for caching data for one
         minuts.
         """
-        formated_movies = cache.get('formated_movies')
-        if not formated_movies:
+        formated_data = cache.get('formated_data')
+        if not formated_data:
             try:
                 movies = self.client.get_movies()
                 people = self.client.get_people()
-                formated_movies = format_movie_data(movies, people)
-                cache.set('formated_movies', formated_movies, 60)
+                formated_data = format_movie_data(movies, people)
+                cache.set('formated_data', formated_data, 60)
             except APIErrorException as e:
                 # should be logged value instead of print
                 print(e)
-                formated_movies = list()
-        return render(request, self.template_name, {'movies': formated_movies})
+                formated_data = list()
+        return render(request, self.template_name, {'movies': formated_data})
