@@ -5,6 +5,7 @@ This project is done on the response to the given task
 I have created a client, movie/src/movie/apps/film/client.py which is responsible for calling the 
 movie and people APIs. The movie and people data are formatted and marges on a utils method on movie/src/movie/utils.py. format_movie_data data marges on O(m+n). 
 Django Caching is used to cache the data for 1 min. When someone loads the page the first time it calls the APIs and cache data for 1 min, so for any request within 1 min will not call the APIs.
+Please find the tests here movie/src/movie/apps/film/tests.py 
 
 Advantages of this approach:
 1. Only call the APIs when is needed, no additional API call.
