@@ -2,11 +2,13 @@
 Containes the utility methods required.
 """
 
+
 def extract_movie_id(link):
     """
     Get movie Id form movie url
     """
     return link.split('/')[-1]
+
 
 def format_movie_data(movies, peoples):
     """
@@ -26,7 +28,7 @@ def format_movie_data(movies, peoples):
             movie_id = extract_movie_id(film)
             movies_list = movie_people.get(movie_id, list())
             if people not in movies_list:
-                movies_list.append(people) 
+                movies_list.append(people)
             movie_people[movie_id] = movies_list
     for movie in movies:
         movie['people'] = movie_people.get(movie['id'], list())

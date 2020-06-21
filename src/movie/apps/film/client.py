@@ -14,7 +14,6 @@ class GhibliClient(object):
         """
         self.base_url = settings.API_BASE_URL
 
-
     def _get_request(self, path):
         """
         Makes http get request on Ghibli apis
@@ -25,8 +24,8 @@ class GhibliClient(object):
         Returns:
         response: Response object from requests
 
-        Exceptions: 
-        Raise APIErrorException exception if the api request 
+        Exceptions:
+        Raise APIErrorException exception if the api request
         does not success.
         """
 
@@ -40,7 +39,7 @@ class GhibliClient(object):
 
     def get_movies(self):
         """
-        Make request on Movie List api, and return Movie List as Json. 
+        Make request on Movie List api, and return Movie List as Json.
         """
         path = '/films/'
         response = self._get_request(path)

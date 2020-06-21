@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.template import Context
 from django.views import View
 from django.core.cache import cache
 from movie.utils import format_movie_data
 from movie.exceptions.api_exception import APIErrorException
-from .client import GhibliClient
+from movie.apps.film.client import GhibliClient
+
 
 class MovieList(View):
     """
@@ -15,7 +15,7 @@ class MovieList(View):
 
     def get(self, request, *args, **kwargs):
         """
-        Responsible for resonse the get request for movie 
+        Responsible for resonse the get request for movie
         list. Used django caching for caching data for one
         minuts.
         """
