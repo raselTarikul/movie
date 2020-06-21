@@ -42,4 +42,3 @@ The following project run the project on port 8000
 docker run --rm -it -p 8000:8000 movie
 ```
 
-
